@@ -10,11 +10,56 @@ This repository contains the DevOps implementation of the application. The origi
 
 ## CI/CD Pipeline
 
-The application is deployed using AWS CodePipeline with the following stages:
+The application deployment is automated using AWS CodePipeline with the following workflow:
 
-- **Source**: GitHub repository with authentication
-- **Build**: AWS CodeBuild for building and pushing Docker images to ECR
-- **Deploy**: Deployment to Amazon EKS (Elastic Kubernetes Service)
+**Source (GitHub)** → **CodeBuild (Source Git + Docker image build + Docker image push to ECR)** → **Deploy: EKS (App by deployment.yaml, service.yaml for LoadBalancer)**
+
+### Pipeline Stages
+
+1. **Source Stage**: 
+   - Connects to GitHub repository with authentication
+   - Triggers pipeline on code changes
+
+2. **Build Stage**:
+   - Uses AWS CodeBuild
+   - Clones source code from Git
+   - Builds Docker image
+   - Pushes Docker image to Amazon ECR
+
+3. **Deploy Stage**:
+   - Deploys to Amazon EKS cluster
+   - Uses Kubernetes manifests (deployment.yaml and service.yaml)
+   - Configures LoadBalancer service for external access
+
+### AWS Stacks Used
+
+- **Docker**: Application containerization
+- **Amazon EKS**: Kubernetes orchestration for application deployment
+- **Amazon ECR**: Docker image registry
+- **AWS CodeBuild**: Build service for Docker image creation and ECR push
+- **AWS CodePipeline**: CI/CD orchestration pipeline
+- **Amazon CloudWatch**: Log management and monitoring
+
+### Pipeline Diagram
+
+```mermaid
+graph TD
+    A[GitHub Repository] --> B[AWS CodePipeline]
+    B --> C[Source Stage]
+    C --> D[Build Stage - CodeBuild]
+    D --> E[Docker Build]
+    E --> F[Push to ECR]
+    F --> G[Deploy Stage - EKS]
+    G --> H[Apply deployment.yaml]
+    H --> I[Apply service.yaml]
+    I --> J[LoadBalancer Service]
+    
+    style A fill:#e1f5fe
+    style B fill:#fff3e0
+    style D fill:#f3e5f5
+    style G fill:#e8f5e8
+    style J fill:#fff
+```
 
 ## Features
 
@@ -116,7 +161,7 @@ Mind-Track-App/
 
 ## Credits
 
-This application was originally created by [Vennilavanguvi](https://github.com/Vennilavanguvi/Trend). The DevOps implementation, including Docker containerization, AWS ECR hosting, and Kubernetes deployment, was contributed by the DevOps team.
+This application was originally created by [Vennilavanguvi](https://github.com/Vennilavanguvi/Trend). The DevOps implementation, including Docker containerization, AWS ECR hosting, and Kubernetes deployment, was contributed by me.
 
 ## Contributing
 
