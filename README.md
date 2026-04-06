@@ -92,14 +92,6 @@ graph TD
 
 3. Open your browser and navigate to `http://localhost:8080`
 
-### Using a Local Server
-
-You can also serve the `app/` directory with any static file server:
-
-```bash
-cd app
-python3 -m http.server 8080
-```
 
 ## Deployment
 
@@ -162,13 +154,3 @@ Mind-Track-App/
 ## Credits
 
 This application was originally created by [Vennilavanguvi](https://github.com/Vennilavanguvi/Trend). The DevOps implementation, including Docker containerization, AWS ECR hosting, and Kubernetes deployment, was contributed by me.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test locally
-5. Submit a pull request
-4. Test locally
-5. Submit a pull request
